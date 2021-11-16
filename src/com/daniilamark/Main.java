@@ -37,7 +37,7 @@ public class Main {
         System.out.print("\n------------------------------------");
         System.out.print("\nРесурсы деревни: ");
         printMass(village.getCurrentResourcesInVillage());
-        System.out.print("------------------------------------");
+        System.out.print("\n------------------------------------");
     }
 
     public static void printMass(int array[]){
