@@ -24,8 +24,8 @@ public class Main {
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) {
-        Village village = new Village(100, 200, 300, 400);
-        Army army = new Army(village,120);
+        Village village = new Village(18, 216, 292, 1670);
+        Army army = new Army(village,1277);
 
         System.out.print("------------------------------------");
         System.out.print("\nРесурсы деревни: ");
@@ -33,10 +33,14 @@ public class Main {
         System.out.print("\n------------------------------------");
         System.out.println(ANSI_RED + "\nДеревня атакована "+ ANSI_RESET);
         System.out.print("Потеряны ресурсы: ");
-        printMass(army.takeAwayResourcesFromVillage(village.getCurrentResourcesInVillage(), army.getLiftingCapacity()));
+        printMass(army.takeAwayResourcesFromVillage(village.getCurrentResourcesInVillage(), (int) army.getLiftingCapacity()));
         System.out.print("\n------------------------------------");
-        System.out.print("\nРесурсы деревни: ");
+        System.out.print("\nРесурсы деревни после атаки: ");
         printMass(village.getCurrentResourcesInVillage());
+        System.out.print("\n------------------------------------");
+        System.out.print("\nКоличество ресурсов в деревне до атаки: " + (int) army.getCountAllRes());
+        System.out.print("\nКоличество ресурсов в деревне после атаки: " + village.getSumResourcesInVillage());
+        System.out.print("\nВсего потеряно: " + (((int) army.getCountAllRes()) - (village.getSumResourcesInVillage())));
         System.out.print("\n------------------------------------");
     }
 

@@ -1,7 +1,10 @@
 package com.daniilamark;
 
+import java.util.ArrayList;
+
 public class Army {
-    private int liftingCapacity;
+    private double liftingCapacity;
+    private double countAllRes = 0;
     Village village;
 
     public Army(Village village, int liftingCapacity){
@@ -9,7 +12,11 @@ public class Army {
         this.village = village;
     }
 
-    public int getLiftingCapacity() {
+    public double getCountAllRes() {
+        return countAllRes;
+    }
+
+    public double getLiftingCapacity() {
         return liftingCapacity;
     }
 
@@ -21,21 +28,34 @@ public class Army {
 
     public int[] takeAwayResourcesFromVillage(int[] awayResources, int liftingCapacityArmy){
         int lenRes = awayResources.length;
-        int countAllRes = 0;
-        int rate = 0;
+        double rate = 0;
+
+        ArrayList<Integer> takeAwayResourcesList = new ArrayList<>(lenRes);
+        int[] takeAwayResources = new int[lenRes];
 
         for (int i : awayResources){
             countAllRes += i;
         }
-        rate = countAllRes / liftingCapacityArmy;
 
-        int[] takeAwayResources = new int[] {village.getIron() / rate,village.getClay() / rate,
-                village.getCorn() / rate, village.getWater() / rate};
+        for (double i : awayResources){
+            if((countAllRes >= liftingCapacityArmy)){
+                rate = countAllRes / liftingCapacityArmy;
+                takeAwayResourcesList.add((int) (i / rate));
+            }
+            else {
+                rate = 1;
+                takeAwayResourcesList.add((int) (i));
+            }
+        }
 
-        village.setIron(village.getIron() - (village.getIron() / rate));
-        village.setClay(village.getClay() - (village.getClay() / rate));
-        village.setCorn(village.getCorn() - (village.getCorn() / rate));
-        village.setWater(village.getWater() - (village.getWater() / rate));
+        for (int i = 0; i < takeAwayResourcesList.size(); i++) {
+            takeAwayResources[i] = takeAwayResourcesList.get(i);
+        }
+
+        village.setIron( (int) (village.getIron() - (village.getIron() / rate)) );
+        village.setClay( (int) (village.getClay() - (village.getClay() / rate)) );
+        village.setCorn( (int) (village.getCorn() - (village.getCorn() / rate)) );
+        village.setWater( (int) (village.getWater() - (village.getWater() / rate)) );
 
         return takeAwayResources;
     }

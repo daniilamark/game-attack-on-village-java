@@ -47,4 +47,9 @@ public class Village {
     public void setCorn(int corn) {
         this.corn = corn;
     }
+
+    public int getSumResourcesInVillage() {
+        int count = getIron() + getClay() + getCorn() + getWater();
+        return count;
+    }
 }
